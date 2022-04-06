@@ -1,11 +1,6 @@
-import type { AppProps } from 'next/app';
-import type NextPageWithLayout from '../types/NextPageWithLayout';
+import type { AppPropsWithLayout } from 'next/app';
 import { Fragment } from 'react';
 import '../styles/globals.css';
-
-type AppPropsWithLayout = AppProps & {
-  Component: NextPageWithLayout;
-};
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // if Component.getLayout is different than null | undefined. run.
