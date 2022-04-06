@@ -1,6 +1,5 @@
-import type NextPageWithLayout from '../types/NextPageWithLayout';
+import { NextPageWithLayout } from 'next';
 import Head from 'next/head';
-import { ReactElement } from 'react';
 import AppLayout from '../components/layouts/AppLayout';
 import styles from '../styles/Home.module.css';
 
