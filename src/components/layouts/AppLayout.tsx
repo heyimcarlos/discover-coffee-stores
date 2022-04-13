@@ -1,6 +1,7 @@
-import Head from 'next/head';
 import React from 'react';
-import Footer from '../Footer';
+import Head from 'next/head';
+// components
+import Footer from '@components/Footer';
 
 type AppLayoutProps = {
   title?: string;
@@ -14,7 +15,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, title = 'Discover Coffe
         <meta charSet='utf-8' />
         <meta name='viewport' content='initial-scale=1.0, width=device-width' />
       </Head>
-      <div>Header</div>
+      {/* <div>Header</div> */}
       <div>{children}</div>
       <Footer />
     </div>
