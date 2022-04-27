@@ -14,10 +14,13 @@ const Banner: React.FC<BannerProps> = ({ buttonText, handleOnClick }) => {
         <span className={styles.titleOne}>Coffee</span>
         <span className={styles.titleTwo}>Connoisseur</span>
       </h1>
+
       <p className={styles.subtitle}>Discover your local coffee shops!</p>
-      <button className={styles.button} onClick={handleOnClick}>
-        {buttonText}
-      </button>
+      <div className={styles.buttonWrapper}>
+        <button className={styles.button} onClick={handleOnClick}>
+          {buttonText}
+        </button>
+      </div>
     </div>
   );
 };

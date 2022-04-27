@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 // styles
 import '@styles/globals.css';
 
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // if Component.getLayout is different than null | undefined. run.
   // const getLayout = Component.getLayout ?? (page => page);
   const Layout = Component.layout ?? Fragment;
@@ -18,5 +18,3 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
     </div>
   );
 }
-
-export default MyApp;

@@ -15,7 +15,7 @@ const CoffeeStore = (props: Props) => {
   return (
     <div>
       <span>CoffeeStore number: {id}</span>
-      <Link scroll={false} href='https://google.com'>
+      <Link scroll={false} href='/'>
         <a>Back to home</a>
       </Link>
     </div>
