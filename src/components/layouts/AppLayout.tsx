@@ -3,8 +3,9 @@ import Head from 'next/head';
 // components
 import Footer from '@components/Footer';
 
-type AppLayoutProps = {
+export type AppLayoutProps = {
   title?: string;
+  children: React.ReactNode;
 };
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children, title = 'Discover Coffee Stores' }) => {

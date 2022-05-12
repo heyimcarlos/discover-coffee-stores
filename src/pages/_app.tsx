@@ -3,6 +3,9 @@ import type { AppPropsWithLayout } from 'next/app';
 import { Fragment } from 'react';
 // styles
 import '@styles/globals.css';
+import '@fontsource/poppins/500.css';
+import '@fontsource/poppins/600.css';
+import '@fontsource/poppins/700.css';
 
 export default function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   // if Component.getLayout is different than null | undefined. run.

@@ -11,7 +11,7 @@ declare module 'next' {
   // {[key: string]: unknown} -> Index signatures are recommended for generic types. {[key: string]: string}.
   // Type<T = {}> -> Empty Object type represents any value that's not a primitive value.
   type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
-    layout: React.FC;
+    layout: React.FC<{ children: React.ReactNode }>;
   };
 }
 
