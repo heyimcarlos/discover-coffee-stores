@@ -2,7 +2,7 @@ import type { AppPropsWithLayout } from 'next/app';
 // components
 import { Fragment } from 'react';
 // styles
-import '@styles/globals.css';
+import '@style/globals.css';
 import '@fontsource/poppins/500.css';
 import '@fontsource/poppins/600.css';
 import '@fontsource/poppins/700.css';

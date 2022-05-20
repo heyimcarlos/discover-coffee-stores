@@ -1,13 +1,13 @@
 /** By default, this is a mobile breakpoint **/
 .container {
-  margin-bottom: 1rem;
+  margin-bottom: 4rem;
   z-index: 2;
   position: relative;
 }
 
 .title {
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   letter-spacing: -0.025em;
   font-weight: 700;
   color: var(--text-black);

@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 // components
 import Link from 'next/link';
 // layouts
-import AppLayout from '@components/layouts/AppLayout';
+import AppLayout from '@component/layouts/AppLayout';
 
 type Props = {};
 

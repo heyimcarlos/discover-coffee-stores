@@ -1,6 +1,6 @@
 import React from 'react';
 // layouts
-import AppLayout from '@components/layouts/AppLayout';
+import AppLayout from '@component/layouts/AppLayout';
 
 type Props = {};
 

@@ -1,11 +1,12 @@
 import { NextPageWithLayout } from 'next';
 import Head from 'next/head';
-// components
-import Banner from '@components/Banner';
-import AppLayout from '@components/layouts/AppLayout';
-// styles
-import styles from '@styles/Home.module.css';
 import Image from 'next/image';
+// components
+import Banner from '@component/banner/Banner';
+import AppLayout from '@component/layouts/AppLayout';
+// styles
+import styles from '@style/home.module.css';
+import Card from '@component/card/Card';
 
 const Home: NextPageWithLayout = () => {
   return (
@@ -16,10 +17,30 @@ const Home: NextPageWithLayout = () => {
         <link rel='icon' href='/static/background.png' />
       </Head>
       <main className={styles.main}>
+        <Banner buttonText='View stores nearby' handleOnClick={() => console.log('hello there')} />
         <div className={styles.heroImage}>
           <Image src='/static/hero-image.png' alt='' width={700} height={400} />
         </div>
-        <Banner buttonText='View stores nearby' handleOnClick={() => console.log('hello there')} />
+        <div className={styles.cardLayout}>
+          <Card
+            className={styles.card}
+            name={'Starbucks NYC'}
+            slug={'starbucks-nyc'}
+            imgUrl={'/static/hero-image.png'}
+          />
+          <Card
+            className={styles.card}
+            name={'Starbucks NYC'}
+            slug={'starbucks-nyc'}
+            imgUrl={'/static/hero-image.png'}
+          />
+          <Card
+            className={styles.card}
+            name={'Starbucks NYC'}
+            slug={'starbucks-nyc'}
+            imgUrl={'/static/hero-image.png'}
+          />
+        </div>
       </main>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 // components
-import Footer from '@components/Footer';
+import Footer from '@component/Footer';
 
 export type AppLayoutProps = {
   title?: string;

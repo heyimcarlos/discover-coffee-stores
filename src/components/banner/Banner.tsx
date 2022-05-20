@@ -1,6 +1,6 @@
 import React from 'react';
 // styles
-import styles from '@styles/Banner.module.css';
+import styles from '@style/Banner.module.css';
 
 interface BannerProps {
   buttonText: string;
