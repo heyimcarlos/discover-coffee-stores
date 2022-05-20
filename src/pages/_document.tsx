@@ -5,21 +5,11 @@ class MyDocument extends Document {
     return (
       <Html lang='en'>
         <Head>
-          {/* <link
-            rel='preload'
-            href='/fonts/Poppins-Bold.ttf'
-            as='font'
-            crossOrigin='anonymous'></link>
-          <link
-            rel='preload'
-            href='/fonts/Poppins-Regular.ttf'
-            as='font'
-            crossOrigin='anonymous'></link>
-          <link
-            rel='preload'
-            href='/fonts/Poppins-SemiBold.ttf'
-            as='font'
-            crossOrigin='anonymous'></link> */}
+          <meta
+            name='description'
+            content='Discover your favorite coffee shops.'
+            data-react-helmet={true}
+          />
         </Head>
         <body>
           <Main></Main>
