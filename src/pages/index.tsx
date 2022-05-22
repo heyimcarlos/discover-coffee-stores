@@ -1,14 +1,24 @@
-import { NextPageWithLayout } from 'next';
 import Head from 'next/head';
 import Image from 'next/image';
+import type { NextPageWithLayout, GetStaticProps } from 'next';
 // components
 import Banner from '@component/banner/Banner';
 import AppLayout from '@component/layouts/AppLayout';
 // styles
 import styles from '@style/home.module.css';
 import Card from '@component/card/Card';
+// JSON
+import coffeeStoresDummyData from '@data/coffee-stores.json';
+// interfaces
+import ICoffeeStore from 'interfaces/ICoffeeStore';
 
-const Home: NextPageWithLayout = () => {
+export const getStaticProps: GetStaticProps = async ({}) => {
+  return {
+    props: { coffeeStores: coffeeStoresDummyData },
+  };
+};
+
+const Home: NextPageWithLayout<{ coffeeStores: ICoffeeStore[] }> = ({ coffeeStores }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -21,26 +31,16 @@ const Home: NextPageWithLayout = () => {
         <div className={styles.heroImage}>
           <Image src='/static/hero-image.png' alt='' width={700} height={400} />
         </div>
-        <div className={styles.cardLayout}>
-          <Card
-            className={styles.card}
-            name={'Starbucks NYC'}
-            slug={'starbucks-nyc'}
-            imgUrl={'/static/hero-image.png'}
-          />
-          <Card
-            className={styles.card}
-            name={'Starbucks NYC'}
-            slug={'starbucks-nyc'}
-            imgUrl={'/static/hero-image.png'}
-          />
-          <Card
-            className={styles.card}
-            name={'Starbucks NYC'}
-            slug={'starbucks-nyc'}
-            imgUrl={'/static/hero-image.png'}
-          />
-        </div>
+        {!!coffeeStores.length && (
+          <>
+            <h2 className={styles.heading2}>Toronto stores</h2>
+            <div className={styles.cardLayout}>
+              {coffeeStores?.map((coffeeStore: ICoffeeStore) => (
+                <Card key={coffeeStore?.id} className={styles.card} coffeeStore={coffeeStore} />
+              ))}
+            </div>
+          </>
+        )}
       </main>
     </div>
   );

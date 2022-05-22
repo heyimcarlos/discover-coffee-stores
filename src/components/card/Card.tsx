@@ -4,25 +4,26 @@ import React, { HTMLAttributes } from 'react';
 import cls from 'classnames';
 
 import styles from '@style/Card.module.css';
+// interfaces
+import ICoffeeStore from 'interfaces/ICoffeeStore';
+import slugify from 'utils/slugify';
 
 type CardProps = {
-  name: string;
-  imgUrl: string;
-  slug: string;
+  coffeeStore: ICoffeeStore;
 };
 
-const Card: React.FC<CardProps & { className: string }> = props => {
+const Card: React.FC<CardProps & { className: string }> = ({ coffeeStore }) => {
   return (
-    <Link href={`/coffee-store/${encodeURIComponent(props.slug)}`}>
+    <Link href={`/coffee-store/${encodeURIComponent(slugify(coffeeStore?.name))}`}>
       <a className={styles.cardLink}>
         <div className={cls('glass', styles.container)}>
           <div className={styles.cardHeaderWrapper}>
-            <h2 className={styles.cardHeader}>{props.name}</h2>
+            <h2 className={styles.cardHeader}>{coffeeStore.name}</h2>
           </div>
           <div className={styles.cardImageWrapper}>
             <Image
               className={styles.cardImage}
-              src={props.imgUrl}
+              src={coffeeStore.imgUrl}
               alt='Coffee Store'
               width={260}
               height={160}
@@ -35,9 +36,10 @@ const Card: React.FC<CardProps & { className: string }> = props => {
 };
 
 Card.defaultProps = {
-  name: 'Starbucks NYC',
-  slug: 'starbucks-nyc',
-  imgUrl: '/static/hero-image.png',
+  coffeeStore: {
+    name: 'Starbucks NYC',
+    imgUrl: '/static/hero-image.png',
+  },
 };
 
 export default Card;

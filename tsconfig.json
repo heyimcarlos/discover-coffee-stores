@@ -19,7 +19,8 @@
     "paths": {
       "@component/*": ["components/*"],
       "@style/*": ["styles/*"],
-      "@type/*": ["types/*"]
+      "@type/*": ["types/*"],
+      "@data/*": ["data/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "next.config.js"],
