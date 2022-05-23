@@ -42,6 +42,11 @@
   margin-top: 5rem;
 }
 
+.footerContent {
+  display: flex;
+  align-items: center;
+}
+
 /** Breakpoints:
   sm: min-width: 640px;
   md: min-width: 768px;

@@ -83,6 +83,12 @@ button:focus {
   border: 1px solid #fff;
 }
 
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 /* CSS Variables */
 :root {
   --text-purple: rgba(67, 56, 202, 1);
