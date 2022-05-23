@@ -1,8 +1,14 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import type { NextPageWithLayout, GetStaticProps } from 'next';
+import type {
+  NextPageWithLayout,
+  GetStaticProps,
+  GetStaticPathsContext,
+  GetStaticPropsResult,
+} from 'next';
 // components
 import Banner from '@component/banner/Banner';
+// layout
 import AppLayout from '@component/layouts/AppLayout';
 // styles
 import styles from '@style/home.module.css';
@@ -12,13 +18,11 @@ import coffeeStoresDummyData from '@data/coffee-stores.json';
 // interfaces
 import ICoffeeStore from 'interfaces/ICoffeeStore';
 
-export const getStaticProps: GetStaticProps = async ({}) => {
-  return {
-    props: { coffeeStores: coffeeStoresDummyData },
-  };
+type Props = {
+  coffeeStores: ICoffeeStore[];
 };
 
-const Home: NextPageWithLayout<{ coffeeStores: ICoffeeStore[] }> = ({ coffeeStores }) => {
+const Home: NextPageWithLayout<Props> = ({ coffeeStores }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -44,6 +48,14 @@ const Home: NextPageWithLayout<{ coffeeStores: ICoffeeStore[] }> = ({ coffeeStor
       </main>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async ({}: GetStaticPathsContext): Promise<
+  GetStaticPropsResult<Props>
+> => {
+  return {
+    props: { coffeeStores: coffeeStoresDummyData },
+  };
 };
 
 // Home.getLayout = function getLayout(page: ReactElement) {
