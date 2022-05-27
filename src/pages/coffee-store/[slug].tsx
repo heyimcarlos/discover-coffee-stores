@@ -12,6 +12,7 @@ import Head from 'next/head';
 import slugify from 'utils/slugify';
 import Image from 'next/image';
 import Link from 'next/link';
+import cls from 'classnames';
 // hooks
 import { useRouter } from 'next/router';
 // layout
@@ -27,10 +28,6 @@ type Props = {
   coffeeStore: ICoffeeStore;
 };
 
-type Params = {
-  slug: string;
-};
-
 const CoffeeStore: NextPageWithLayout<Props> = ({ coffeeStore }) => {
   const router = useRouter();
 
@@ -38,26 +35,65 @@ const CoffeeStore: NextPageWithLayout<Props> = ({ coffeeStore }) => {
     return <div>Loading...</div>;
   }
 
+  const handleUpVote = () => {
+    console.log('handleUpVote');
+  };
+
   return (
     <div className={styles.layout}>
       <Head>
         <title>{coffeeStore.name}</title>
       </Head>
-      <div className={styles.col1}>
-        <Link href='/'>
-          <a className={styles.backToHomeLink}>Back to home</a>
-        </Link>
-        <p>{coffeeStore.name}</p>
-        <Image src={coffeeStore.imgUrl} alt={coffeeStore.name} width={600} height={360} />
+      <div className={styles.container}>
+        <div className={styles.col1}>
+          <div className={styles.backToHomeLink}>
+            <Link href='/'>
+              <a>Back to home</a>
+            </Link>
+          </div>
+          <div className={styles.nameWrapper}>
+            <h1 className={styles.name}>{coffeeStore.name}</h1>
+          </div>
+          <div className={styles.storeImgWrapper}>
+            <Image
+              src={coffeeStore.imgUrl}
+              className={styles.storeImg}
+              alt={coffeeStore.name}
+              width={600}
+              height={360}
+            />
+          </div>
+        </div>
+        <div className={cls('glass', styles.col2)}>
+          <div className={styles.iconWrapper}>
+            <Image src='/static/icons/place.svg' alt={coffeeStore.address} width='24' height='24' />
+            <p className={styles.text}>{coffeeStore.address}</p>
+          </div>
+          <div className={styles.iconWrapper}>
+            <Image
+              src='/static/icons/nearMe.svg'
+              alt={coffeeStore.neighbourhood}
+              width='24'
+              height='24'
+            />
+            <p className={styles.text}>{coffeeStore.neighbourhood}</p>
+          </div>
+          <div className={styles.iconWrapper}>
+            <Image src='/static/icons/star.svg' alt={'rating'} width='24' height='24' />
+            <p className={styles.text}>1</p>
+          </div>
+          <button className={styles.upvoteButton} onClick={handleUpVote}>
+            Up vote!
+          </button>
+        </div>
       </div>
-      <div className={styles.col2}>
-        <p>{coffeeStore.address}</p>
-        <p>{coffeeStore.neighbourhood}</p>
-        <p>{coffeeStore.websiteUrl}</p>
-      </div>
-      <Link scroll={false} href='/'></Link>
+      {/* <Link scroll={false} href='/'></Link> */}
     </div>
   );
+};
+
+type Params = {
+  slug: string;
 };
 
 export const getStaticProps: GetStaticProps<Props, Params> = async ({

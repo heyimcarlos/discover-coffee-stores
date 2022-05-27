@@ -17,6 +17,7 @@ import Card from '@component/card/Card';
 import coffeeStoresDummyData from '@data/coffee-stores.json';
 // interfaces
 import ICoffeeStore from 'interfaces/ICoffeeStore';
+import { fetchPlaces } from 'lib/fetch-places';
 
 type Props = {
   coffeeStores: ICoffeeStore[];
@@ -53,6 +54,24 @@ const Home: NextPageWithLayout<Props> = ({ coffeeStores }) => {
 export const getStaticProps: GetStaticProps = async ({}: GetStaticPathsContext): Promise<
   GetStaticPropsResult<Props>
 > => {
+  // const options = {
+  //   method: 'GET',
+  //   headers: {
+  //     Accept: 'application/json',
+  //     Authorization: 'fsq3iCmJeSyBSfi214mcASE2+JKwMvKTxDcpmREcgOI2ybk=',
+  //   },
+  // };
+
+  // const res = await fetch(
+  //   'https://api.foursquare.com/v3/places/search?categories=13032%2C13033%2C13034%2C13035%2C13063%2C13036%2C11126&near=Santo%20Domingo',
+  //   options
+  // );
+
+  const coffeeStores = await fetchPlaces({
+    categories: '13032,2C13033,2C13034,2C13035,2C13063,2C13036,2C11126',
+    near: 'Santo Domingo',
+  });
+  // console.log('coffeeStores', coffeeStores);
   return {
     props: { coffeeStores: coffeeStoresDummyData },
   };
