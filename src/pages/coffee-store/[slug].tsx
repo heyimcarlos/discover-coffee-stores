@@ -17,18 +17,17 @@ import cls from 'classnames';
 import { useRouter } from 'next/router';
 // layout
 import AppLayout from '@component/layouts/AppLayout';
-//JSON
-import coffeeStoresDummyData from '@data/coffee-stores.json';
 // types
-import ICoffeeStore from 'interfaces/ICoffeeStore';
+import { IPlace } from 'interfaces/IPlace';
 // styles
 import styles from '@style/coffee-store.module.css';
+import { fetchPlaces } from 'lib/fetch-places';
 
 type Props = {
-  coffeeStore: ICoffeeStore;
+  entity: IPlace;
 };
 
-const CoffeeStore: NextPageWithLayout<Props> = ({ coffeeStore }) => {
+const CoffeeStore: NextPageWithLayout<Props> = ({ entity }) => {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -42,7 +41,7 @@ const CoffeeStore: NextPageWithLayout<Props> = ({ coffeeStore }) => {
   return (
     <div className={styles.layout}>
       <Head>
-        <title>{coffeeStore.name}</title>
+        <title>{entity.name}</title>
       </Head>
       <div className={styles.container}>
         <div className={styles.col1}>
@@ -52,13 +51,15 @@ const CoffeeStore: NextPageWithLayout<Props> = ({ coffeeStore }) => {
             </Link>
           </div>
           <div className={styles.nameWrapper}>
-            <h1 className={styles.name}>{coffeeStore.name}</h1>
+            <h1 className={styles.name}>{entity.name}</h1>
           </div>
           <div className={styles.storeImgWrapper}>
             <Image
-              src={coffeeStore.imgUrl}
+              src={
+                'https://images.unsplash.com/photo-1498804103079-a6351b050096?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2468&q=80'
+              }
               className={styles.storeImg}
-              alt={coffeeStore.name}
+              alt={entity.name}
               width={600}
               height={360}
             />
@@ -66,17 +67,22 @@ const CoffeeStore: NextPageWithLayout<Props> = ({ coffeeStore }) => {
         </div>
         <div className={cls('glass', styles.col2)}>
           <div className={styles.iconWrapper}>
-            <Image src='/static/icons/place.svg' alt={coffeeStore.address} width='24' height='24' />
-            <p className={styles.text}>{coffeeStore.address}</p>
+            <Image
+              src='/static/icons/place.svg'
+              alt={entity?.location?.address}
+              width='24'
+              height='24'
+            />
+            <p className={styles.text}>{entity?.location?.formatted_address}</p>
           </div>
           <div className={styles.iconWrapper}>
             <Image
               src='/static/icons/nearMe.svg'
-              alt={coffeeStore.neighbourhood}
+              alt={entity?.location?.neighborhood}
               width='24'
               height='24'
             />
-            <p className={styles.text}>{coffeeStore.neighbourhood}</p>
+            <p className={styles.text}>{entity?.location?.neighborhood?.[0]}</p>
           </div>
           <div className={styles.iconWrapper}>
             <Image src='/static/icons/star.svg' alt={'rating'} width='24' height='24' />
@@ -101,13 +107,17 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 }: GetStaticPropsContext<Params>): Promise<GetStaticPropsResult<Props>> => {
   const { slug } = params as Params;
 
-  const coffeeStore = coffeeStoresDummyData.find(
-    coffeeStore => slugify(coffeeStore.name) === slug
-  ) as ICoffeeStore; // we do the type assertion to avoid the | undefined being inferred and tell typescript to consider the result to be type ICoffeeStore everytime.
+  const { results } = await fetchPlaces({
+    categories: '13032,13033,13034,13035,13063,13036,11126',
+    near: 'Santo Domingo',
+    limit: 6,
+  });
+
+  const entity = results?.find(entity => slugify(entity.name) === slug) as IPlace;
 
   return {
     props: {
-      coffeeStore,
+      entity,
     },
   };
 };
@@ -115,9 +125,15 @@ export const getStaticProps: GetStaticProps<Props, Params> = async ({
 export const getStaticPaths: GetStaticPaths<Params> = async ({}: GetStaticPathsContext): Promise<
   GetStaticPathsResult<Params>
 > => {
-  const paths = coffeeStoresDummyData.map((coffeeStore: ICoffeeStore) => {
+  const { results } = await fetchPlaces({
+    categories: '13032,13033,13034,13035,13063,13036,11126',
+    near: 'Santo Domingo',
+    limit: 6,
+  });
+
+  const paths = results.map((entity: IPlace) => {
     return {
-      params: { slug: slugify(coffeeStore.name) },
+      params: { slug: slugify(entity.name) },
     };
   });
 

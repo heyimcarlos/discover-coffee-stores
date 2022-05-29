@@ -13,17 +13,17 @@ import AppLayout from '@component/layouts/AppLayout';
 // styles
 import styles from '@style/home.module.css';
 import Card from '@component/card/Card';
-// JSON
-import coffeeStoresDummyData from '@data/coffee-stores.json';
 // interfaces
-import ICoffeeStore from 'interfaces/ICoffeeStore';
 import { fetchPlaces } from 'lib/fetch-places';
+import { QueryResponse } from 'interfaces/response';
+import { IPlace } from 'interfaces/IPlace';
+import prepPlaces from 'lib/prep-places';
 
 type Props = {
-  coffeeStores: ICoffeeStore[];
+  data: QueryResponse<IPlace>;
 };
 
-const Home: NextPageWithLayout<Props> = ({ coffeeStores }) => {
+const Home: NextPageWithLayout<Props> = ({ data }) => {
   return (
     <div className={styles.container}>
       <Head>
@@ -36,12 +36,12 @@ const Home: NextPageWithLayout<Props> = ({ coffeeStores }) => {
         <div className={styles.heroImage}>
           <Image src='/static/hero-image.png' alt='' width={700} height={400} />
         </div>
-        {!!coffeeStores.length && (
+        {!!data?.results?.length && (
           <>
-            <h2 className={styles.heading2}>Toronto stores</h2>
+            <h2 className={styles.heading2}>Venues</h2>
             <div className={styles.cardLayout}>
-              {coffeeStores?.map((coffeeStore: ICoffeeStore) => (
-                <Card key={coffeeStore?.id} className={styles.card} coffeeStore={coffeeStore} />
+              {data.results.map((entity: IPlace) => (
+                <Card key={entity?.fsq_id} className={styles.card} entity={entity} />
               ))}
             </div>
           </>
@@ -54,26 +54,14 @@ const Home: NextPageWithLayout<Props> = ({ coffeeStores }) => {
 export const getStaticProps: GetStaticProps = async ({}: GetStaticPathsContext): Promise<
   GetStaticPropsResult<Props>
 > => {
-  // const options = {
-  //   method: 'GET',
-  //   headers: {
-  //     Accept: 'application/json',
-  //     Authorization: 'fsq3iCmJeSyBSfi214mcASE2+JKwMvKTxDcpmREcgOI2ybk=',
-  //   },
-  // };
-
-  // const res = await fetch(
-  //   'https://api.foursquare.com/v3/places/search?categories=13032%2C13033%2C13034%2C13035%2C13063%2C13036%2C11126&near=Santo%20Domingo',
-  //   options
-  // );
-
-  const coffeeStores = await fetchPlaces({
-    categories: '13032,2C13033,2C13034,2C13035,2C13063,2C13036,2C11126',
+  const data = await fetchPlaces({
+    categories: '13032,13033,13034,13035,13063,13036,11126',
     near: 'Santo Domingo',
+    limit: 6,
   });
-  // console.log('coffeeStores', coffeeStores);
+
   return {
-    props: { coffeeStores: coffeeStoresDummyData },
+    props: { data },
   };
 };
 
